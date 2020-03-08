@@ -4,16 +4,17 @@
 class GameObject {
 
 public:
-	GameObject(const char* texture, SDL_Renderer* rend, int initX, int initY);
+	GameObject(const char* texture, SDL_Renderer* rend, int initX, int initY, SDL_Event gameEvent);
 	~GameObject();
 
-	void update();
+	virtual void update();
 	void render();
+	SDL_Event event;
 
-private:
+protected:
 	int x;
 	int y;
-	
+
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;
 	SDL_Renderer* renderer;

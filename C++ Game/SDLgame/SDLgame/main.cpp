@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
 	int frameTime;
 
 	game = new Game();
-	game->init("The Most Epic Game Ever Created", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1800, 600, false);
+	game->init("The Most Epic Game Ever Created", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 900, 900, false);
 
 	while (game->running()) {
 

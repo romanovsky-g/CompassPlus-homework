@@ -1,8 +1,11 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "Player.h"
+#include <vector>
+using namespace std;
 
-GameObject* player;
+vector<GameObject*> enteties;
 
 Game::Game()
 {}
@@ -36,38 +39,44 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	player = new GameObject("assets/test.png", renderer, 0, 0); 
+	enteties.push_back(new Player("assets/test.png", renderer, 0, 0, event, 7));
 }
 
 void Game::handleEvents()
 {
-	/*SDL_Event event;
-
 	SDL_PollEvent(&event);
+
+	for (auto ent : enteties)
+	{
+		ent->event = event;
+	}
+
 
 	switch (event.type)
 	{
 	case SDL_QUIT:
 		isRunning = false;
 		break;
-
-	default:
-		break;
-	}*/
+	}
 }
 
 void Game::update()
 {
-	player->update();
-
+	for (auto ent : enteties)
+	{
+		ent->update();
+	}
 }
 
 void Game::render()
 {	
 	SDL_RenderClear(renderer);
 
-	// things to render
-	player->render();
+	for (auto ent : enteties)
+	{
+		ent->render();
+	}
+
 	SDL_RenderPresent(renderer);
 }
 

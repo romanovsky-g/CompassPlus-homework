@@ -1,2 +1,6 @@
-﻿  main.cpp
+﻿  Game.cpp
+  GameObject.cpp
+  Player.cpp
+  Generating Code...
+  LINK : C:\Users\grego\source\repos\SDLgame\x64\Debug\SDLgame.exe not found or not built by the last incremental link; performing full link
   SDLgame.vcxproj -> C:\Users\grego\source\repos\SDLgame\x64\Debug\SDLgame.exe

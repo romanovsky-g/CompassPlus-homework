@@ -21,6 +21,8 @@ public:
 private:
 	int count = 0;
 	bool isRunning;
+
+	SDL_Event event;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 };
