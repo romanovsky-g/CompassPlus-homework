@@ -1,33 +1,34 @@
 #include "Player.h"
 
-Player::Player(const char* texture, SDL_Renderer* rend, int initX, int initY, SDL_Event gameEvent, int initSpeed) : GameObject(texture, rend, initX, initY, gameEvent) {
+Player::Player(const char* texture, SDL_Renderer* rend, int initX, int initY, int initSpeed) : GameObject(texture, rend, initX, initY) {
 	speed = initSpeed;
     x = initX;
     y = initY;
 }
 
-void Player::update()
-{
-    GameObject::update();
+Player::~Player()
+{}
 
-    switch (event.type) {
+void Player::handle_event(SDL_Event* evt)
+{
+    switch (evt->type) {
         // Look for a keypress
     case SDL_KEYDOWN:
         // Check the SDLKey values and move change the coords
-        switch (event.key.keysym.sym) {
+        switch (evt->key.keysym.sym) {
         case SDLK_a:
             xvel = -speed;
             break;
         case SDLK_d:
             xvel = speed;
             break;
-        
+
         default:
             break;
         }
         break;
     case SDL_KEYUP:
-        switch (event.key.keysym.sym) {
+        switch (evt->key.keysym.sym) {
         case SDLK_a:
             if (xvel < 0)
                 xvel = 0;
@@ -36,7 +37,7 @@ void Player::update()
             if (xvel > 0)
                 xvel = 0;
             break;
-        
+
         default:
             break;
         }
@@ -45,6 +46,11 @@ void Player::update()
     default:
         break;
     }
+}
+
+void Player::update()
+{
+    GameObject::update();
 
     x += xvel;
     y += yvel;

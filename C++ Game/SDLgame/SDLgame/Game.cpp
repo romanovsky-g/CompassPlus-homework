@@ -5,7 +5,9 @@
 #include <vector>
 using namespace std;
 
+Player* player;
 vector<GameObject*> enteties;
+vector<GameObject*> listeners;
 
 Game::Game()
 {}
@@ -39,24 +41,17 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	enteties.push_back(new Player("assets/test.png", renderer, 0, 0, event, 7));
+	player = new Player("assets/test.png", renderer, 0, 0, 7);
+
+	enteties.push_back(player);
+	listeners.push_back(player); 
 }
 
-void Game::handleEvents()
+void Game::handle_event(SDL_Event* evt)
 {
-	SDL_PollEvent(&event);
-
-	for (auto ent : enteties)
+	for (auto ent : listeners)
 	{
-		ent->event = event;
-	}
-
-
-	switch (event.type)
-	{
-	case SDL_QUIT:
-		isRunning = false;
-		break;
+		ent->handle_event(evt);
 	}
 }
 

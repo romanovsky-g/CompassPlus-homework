@@ -1,15 +1,17 @@
 #include "GameObject.h"
 #include "TextureManager.h"
 
-GameObject::GameObject(const char* texture, SDL_Renderer* rend, int initX, int initY, SDL_Event gameEvent)
+GameObject::GameObject(const char* texture, SDL_Renderer* rend, int initX, int initY)
 {
-	event = gameEvent;
 	renderer = rend;
 	objTexture = TextureManager::LoadTexture(texture, rend);
 
 	x = initX;
 	y = initY;
 }
+
+GameObject::~GameObject()
+{}
 
 void GameObject::update()
 {
@@ -23,6 +25,11 @@ void GameObject::update()
 	destRect.w = srcRect.w*2;
 	destRect.h = srcRect.h*2;
 }
+
+void GameObject::handle_event(SDL_Event* evt)
+{
+	// handle events
+};
 
 void GameObject::render()
 {

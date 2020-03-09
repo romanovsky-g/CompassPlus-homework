@@ -5,9 +5,10 @@
 
 class Player : public GameObject {
 public:
-    Player(const char* texture, SDL_Renderer* rend, int initX, int initY, SDL_Event gameEvent, int initSpeed);
+    Player(const char* texture, SDL_Renderer* rend, int initX, int initY, int initSpeed);
     ~Player();
 
+    void handle_event(SDL_Event* evt);
     void update();
     void render();
 

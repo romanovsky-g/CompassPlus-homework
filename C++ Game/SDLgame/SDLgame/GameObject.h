@@ -4,9 +4,10 @@
 class GameObject {
 
 public:
-	GameObject(const char* texture, SDL_Renderer* rend, int initX, int initY, SDL_Event gameEvent);
+	GameObject(const char* texture, SDL_Renderer* rend, int initX, int initY);
 	~GameObject();
 
+	virtual void handle_event(SDL_Event* evt);
 	virtual void update();
 	void render();
 	SDL_Event event;
