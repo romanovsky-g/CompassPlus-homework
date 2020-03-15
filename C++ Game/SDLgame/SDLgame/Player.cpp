@@ -11,49 +11,21 @@ Player::~Player()
 
 void Player::handle_event(SDL_Event* evt)
 {
-    switch (evt->type) {
-        // Look for a keypress
-    case SDL_KEYDOWN:
-        // Check the SDLKey values and move change the coords
-        switch (evt->key.keysym.sym) {
-        case SDLK_a:
-            xvel = -speed;
-            break;
-        case SDLK_d:
-            xvel = speed;
-            break;
-
-        default:
-            break;
-        }
-        break;
-    case SDL_KEYUP:
-        switch (evt->key.keysym.sym) {
-        case SDLK_a:
-            if (xvel < 0)
-                xvel = 0;
-            break;
-        case SDLK_d:
-            if (xvel > 0)
-                xvel = 0;
-            break;
-
-        default:
-            break;
-        }
-        break;
-
-    default:
-        break;
-    }
 }
 
 void Player::update()
 {
-    GameObject::update();
 
-    x += xvel;
-    y += yvel;
+    SDL_GetMouseState(&x, &y);
+
+    x = y;
+
+    srcRect.h = 16;
+    srcRect.w = 16;
+    srcRect.x = 0;
+    srcRect.y = 0;
+
+    GameObject::update();
 }
 
 void Player::render()

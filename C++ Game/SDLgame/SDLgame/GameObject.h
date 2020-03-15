@@ -9,7 +9,8 @@ public:
 
 	virtual void handle_event(SDL_Event* evt);
 	virtual void update();
-	void render();
+	virtual void render();
+	void offset(int offsetX, int offsetY);
 	SDL_Event event;
 
 protected:

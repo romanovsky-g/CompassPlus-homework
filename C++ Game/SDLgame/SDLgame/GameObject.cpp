@@ -10,20 +10,22 @@ GameObject::GameObject(const char* texture, SDL_Renderer* rend, int initX, int i
 	y = initY;
 }
 
+void GameObject::offset(int offsetX = 0, int offsetY = 0)
+{
+	x += offsetX;
+	y += offsetY;
+}
+
+
 GameObject::~GameObject()
 {}
 
 void GameObject::update()
 {
-	srcRect.h = 32;
-	srcRect.w = 32;
-	srcRect.x = 0;
-	srcRect.y = 0;
-
 	destRect.x = x;
 	destRect.y = y;
-	destRect.w = srcRect.w*2;
-	destRect.h = srcRect.h*2;
+	destRect.w = srcRect.w * 4;
+	destRect.h = srcRect.h * 4;
 }
 
 void GameObject::handle_event(SDL_Event* evt)
@@ -33,5 +35,5 @@ void GameObject::handle_event(SDL_Event* evt)
 
 void GameObject::render()
 {
-	SDL_RenderCopy(renderer, objTexture, &srcRect, &destRect);
+	SDL_RenderCopyEx(renderer, objTexture, &srcRect, &destRect, 0, NULL, SDL_FLIP_NONE);
 }

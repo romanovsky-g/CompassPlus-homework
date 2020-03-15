@@ -19,19 +19,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="FinishBlock.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="FinishBlock.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="level\classic.json" />
     <None Include="libjpeg-9.dll" />
     <None Include="libpng16-16.dll" />
     <None Include="SDL2.dll" />
@@ -40,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\test.png" />
+    <Image Include="assets\tiles.png" />
+    <Image Include="assets\ui.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

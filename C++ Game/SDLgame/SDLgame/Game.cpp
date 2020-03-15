@@ -1,18 +1,38 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
-#include "Player.h"
+
+#include "Block.h"
+#include "Ground.h"
+#include "Wall.h"
+#include "FinishBlock.h"
+#include "Button.h"
+#include "GameState.h"
+
 #include <vector>
+#include "nlohmann/json.hpp"
+#include <fstream>
+#include <map>
+
+using json = nlohmann::json;
 using namespace std;
 
-Player* player;
+GameState* gameState;
+
 vector<GameObject*> enteties;
 vector<GameObject*> listeners;
+
+const char* tileTexPath = "assets/tiles.png";
 
 Game::Game()
 {}
 Game::~Game()
 {}
+
+void SayHi()
+{
+	printf("Hello!");
+}
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
@@ -41,10 +61,69 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	player = new Player("assets/test.png", renderer, 0, 0, 7);
+	// Loading Map
 
-	enteties.push_back(player);
-	listeners.push_back(player); 
+	json levelFile;
+	ifstream file("level/classic.json");
+	file >> levelFile;
+
+	int blockY = 0;
+
+
+	for (auto blockRow : levelFile["1"])
+	{
+		for (size_t blockX = 0; blockX < 10; blockX++)
+		{
+			if (blockRow[blockX] == 0)
+			{
+				Ground* newGroundBlock = new Ground(tileTexPath, renderer, blockX, blockY, gameState);
+
+				enteties.push_back(newGroundBlock);
+				listeners.push_back(newGroundBlock);
+			}
+			else if (blockRow[blockX] == 1) {
+				Wall* newWallBlock = new Wall(tileTexPath, renderer, blockX, blockY);
+
+				enteties.push_back(newWallBlock);
+			}
+			else if (blockRow[blockX] == 2) {
+				FinishBlock* finishBlock = new FinishBlock(tileTexPath, renderer, blockX, blockY);
+
+				enteties.push_back(finishBlock);
+			}
+			else if (blockRow[blockX] == 3) {
+				Ground* spawnBlock = new Ground(tileTexPath, renderer, blockX, blockY, gameState, true);
+
+				enteties.push_back(spawnBlock);
+				listeners.push_back(spawnBlock);
+			}
+			else
+			{
+				Block* errBlock = new Block(tileTexPath, renderer, blockX, blockY, 95, 0);
+
+				enteties.push_back(errBlock);
+			}
+
+			cout << blockRow[blockX];
+		}
+		cout << endl;
+		blockY++;
+	}
+
+	file.close();
+
+	
+	/*for (auto ent : enteties)
+	{
+		ent->offset(0, 44);
+	}*/
+
+	//Button* playButton = new Button("assets/ui.png", renderer, 0, 0, 112, 44, 0, 0);
+	//playButton->onClick = SayHi;
+
+	//enteties.push_back(playButton);
+	//listeners.push_back(playButton);
+	
 }
 
 void Game::handle_event(SDL_Event* evt)
@@ -65,6 +144,7 @@ void Game::update()
 
 void Game::render()
 {	
+	SDL_SetRenderDrawColor(renderer, 41, 41, 41, 255);
 	SDL_RenderClear(renderer);
 
 	for (auto ent : enteties)

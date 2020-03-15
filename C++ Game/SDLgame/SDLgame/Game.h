@@ -1,4 +1,4 @@
-#ifndef Game_hpp
+	#ifndef Game_hpp
 #define Game_hpp
 #include "SDL.h"
 #include "SDL_image.h"
