@@ -12,12 +12,11 @@
 #include <vector>
 #include "nlohmann/json.hpp"
 #include <fstream>
-#include <map>
 
 using json = nlohmann::json;
 using namespace std;
 
-GameState* gameState;
+GameState gameState;
 
 vector<GameObject*> enteties;
 vector<GameObject*> listeners;
@@ -76,7 +75,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		{
 			if (blockRow[blockX] == 0)
 			{
-				Ground* newGroundBlock = new Ground(tileTexPath, renderer, blockX, blockY, gameState);
+				Ground* newGroundBlock = new Ground(tileTexPath, renderer, blockX, blockY, &gameState);
 
 				enteties.push_back(newGroundBlock);
 				listeners.push_back(newGroundBlock);
@@ -92,7 +91,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 				enteties.push_back(finishBlock);
 			}
 			else if (blockRow[blockX] == 3) {
-				Ground* spawnBlock = new Ground(tileTexPath, renderer, blockX, blockY, gameState, true);
+				Ground* spawnBlock = new Ground(tileTexPath, renderer, blockX, blockY, &gameState, true);
 
 				enteties.push_back(spawnBlock);
 				listeners.push_back(spawnBlock);

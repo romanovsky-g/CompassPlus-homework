@@ -102,7 +102,10 @@ void Ground::update()
         {
             if (gameState->currArrowAmount < gameState->maxArrowAmount || arrowDirection != 0)
             {
-                if (arrowDirection == 0) { gameState->currArrowAmount++; }
+                if (arrowDirection == 0) {
+                    gameState->currArrowAmount++;
+                    gameState->arrows.push_back(&destRect);
+                }
                 if (arrowDirection < 4)
                 {
                     arrowDirection++;
@@ -114,15 +117,19 @@ void Ground::update()
             }
 
             pressedOnce = false;
-
-            printf("Current arrows: %d, Max arrows: %d\n", gameState->currArrowAmount, gameState->maxArrowAmount);
+            
         }
         else if (backspacePressed && arrowDirection !=0)
         {
             arrowDirection = 0;
-            
             gameState->currArrowAmount--;
 
+            for (auto elem : gameState->arrows)
+            {
+                if (elem == &destRect) {
+                    gameState->arrows.erase(find(gameState->arrows.begin(), gameState->arrows.end(), elem));
+                }
+            }
         }
         else {/*do nothing*/}
     }
